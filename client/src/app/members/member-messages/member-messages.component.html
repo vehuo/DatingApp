@@ -4,7 +4,11 @@
             No messages yet... say hi by using the message box below
         </div>
 
-        <ul *ngIf="(messageService.messageThread$ | async)?.length > 0" class="chat">
+        <ul #scrollMe
+            style="overflow: scroll; height: 500px;"
+            [scrollTop]="scrollMe.scrollHeight"
+            *ngIf="(messageService.messageThread$ | async)?.length > 0" 
+            class="chat">
             <li *ngFor="let message of (messageService.messageThread$ | async)">
                 <div>
                     <span class="chat-img float-right">
@@ -14,7 +18,7 @@
                     <div class="chat-body">
                         <div class="header">
                             <small class="text-muted">
-                                <span class="fa fa-clock-o">{{message.messageSent | timeago}}</span>
+                                <span class="fa fa-clock-o"> {{message.messageSent | timeago}}</span>
                                 <span class="text-danger" *ngIf="!message.dateRead 
                                     && message.senderUsername !== username">
                                     (unread)
